@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GM2 - Teljes 1. ZH Fogalomtár</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --container-bg: #1e293b;
+            --text-color: #cbd5e1;
+            --accent: #38bdf8;
+            --highlight: #fbbf24;
+            --math-color: #f472b6;
+            --border-color: #334155;
+        }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            margin: 0;
+        }
+        .container { 
+            max-width: 950px; 
+            width: 100%;
+            background: var(--container-bg); 
+            padding: 40px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
+            box-sizing: border-box; /* Ne lógjon ki a képernyőről */
+        }
+        h1 { 
+            color: var(--accent); 
+            text-align: center; 
+            border-bottom: 2px solid var(--accent); 
+            padding-bottom: 15px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        h2 { 
+            color: var(--highlight); 
+            border-left: 6px solid var(--highlight); 
+            padding-left: 15px; 
+            margin-top: 40px; 
+            background: rgba(251, 191, 36, 0.05);
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #e2e8f0;
+            margin-top: 25px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+        }
+        .def-card { 
+            background: rgba(255,255,255,0.02); 
+            border: 1px solid var(--border-color); 
+            padding: 15px; 
+            margin: 12px 0; 
+            border-radius: 8px; 
+            transition: 0.2s;
+        }
+        .def-card:hover {
+            border-color: var(--accent);
+            background: rgba(56, 189, 248, 0.05);
+        }
+        .def-title { 
+            font-weight: bold; 
+            color: var(--accent); 
+            font-size: 1.05em;
+        }
+        .formula { 
+            background: #000; 
+            color: var(--math-color); 
+            padding: 15px; 
+            border-radius: 8px; 
+            display: block; 
+            text-align: center; 
+            font-family: 'Courier New', monospace; 
+            font-weight: bold;
+            margin: 15px 0; 
+            border: 1px solid #444; 
+            overflow-x: auto; /* Ha hosszú a képlet, lehessen görgetni oldalra, ne csessze szét a dizájnt */
+        }
+        .grid-2 { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+        }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 5px; }
+        .img-box {
+            text-align: center;
+            margin: 25px 0;
+            padding: 15px;
+            background: #0f172a;
+            border-radius: 10px;
+            border: 1px dashed var(--border-color);
+        }
+        .img-box img { max-width: 100%; height: auto; border-radius: 5px; }
+        .img-label { color: #94a3b8; font-size: 0.9em; font-style: italic; margin-top: 10px; }
+        .footer { text-align: center; margin-top: 50px; font-size: 0.8em; color: #64748b; border-top: 1px solid var(--border-color); padding-top: 20px;}
+
+        /* MOBILOS NÉZET SZABÁLYAI (Reszponzivitás) */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 20px; }
+            .grid-2 { grid-template-columns: 1fr; } /* Telefonon 1 oszlopos legyen minden */
+            h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gazdasági Matematika 2 - Teljes Fogalomtár</h1>
+        <p style="text-align: center; color: #94a3b8;">Az Első ZH teljes elméleti anyaga: Mátrixok, Vektorterek, LER, Leképezések, Kvadratikus formák és Euklideszi terek.</p>
+
+        <div class="section">
+            <h2>1. Mátrixok és Műveletek</h2>
+            <div class="grid-2">
+                <div class="def-card"><span class="def-title">Mátrix:</span> m sorból és n oszlopból álló számtáblázat (m×n-es mátrix).</div>
+                <div class="def-card"><span class="def-title">Négyzetes mátrix:</span> A sorok és oszlopok száma egyenlő (n = m).</div>
+                <div class="def-card"><span class="def-title">Főátló:</span> A négyzetes mátrix a<sub>11</sub>, a<sub>22</sub>, ..., a<sub>nn</sub> elemei.</div>
+                <div class="def-card"><span class="def-title">Diagonális mátrix:</span> A főátlón kívüli összes elem nulla.</div>
+                <div class="def-card"><span class="def-title">Háromszögmátrix:</span> Felső, ha a főátló alatt, alsó, ha a főátló felett minden elem nulla.</div>
+                <div class="def-card"><span class="def-title">Egységmátrix (E vagy I):</span> Főátlójában csupa 1-es áll, többi elem 0.</div>
+            </div>
+            <div class="def-card"><span class="def-title">Transzponált (A<sup>T</sup>):</span> A mátrix sorainak és oszlopainak felcserélésével kapott mátrix.</div>
+            <div class="def-card"><span class="def-title">Szimmetrikus mátrix:</span> Olyan négyzetes mátrix, amelyre igaz, hogy A = A<sup>T</sup>.</div>
+            <div class="def-card"><span class="def-title">Determináns:</span> Négyzetes mátrixhoz rendelt valós szám, amely megmutatja a leképezés terület/térfogat változtató hatását.</div>
+            <div class="def-card"><span class="def-title">Reguláris mátrix:</span> det(A) ≠ 0. Ilyenkor a mátrix invertálható.</div>
+            <div class="def-card"><span class="def-title">Szinguláris mátrix:</span> det(A) = 0. Ilyenkor a mátrix NEM invertálható.</div>
+            <div class="def-card"><span class="def-title">Invertálható mátrix:</span> Az A mátrixhoz létezik olyan B mátrix, hogy AB = BA = E. Jele: A<sup>-1</sup>.</div>
+            <div class="def-card"><span class="def-title">Mátrix rangja:</span> A lineárisan független sorok (vagy oszlopok) maximális száma. Gauss-eliminációval számoljuk (a nem csupa nulla sorok száma a lépcsős alakban).</div>
+        </div>
+
+        <div class="img-box">
+            <img src="determinans_jelentese.png" alt="A determináns geometriai jelentése">
+            <div class="img-label">A determináns geometriai jelentése: a kifeszített paralelogramma területe (T = |ad - bc|)</div>
+        </div>
+
+        <div class="section">
+            <h2>2. Az R<sup>n</sup> tér szerkezete és Alterei</h2>
+            <div class="def-card"><span class="def-title">Altér:</span> A vektortér olyan nemüres részhalmaza, amely maga is vektortér (zárt az összeadásra és a skalárral való szorzásra).</div>
+            <div class="def-card"><span class="def-title">Triviális alterek:</span> Minden vektortérnek altere önmaga (V) és a csak a nullvektorból álló halmaz {0}.</div>
+            <div class="grid-2">
+                <div class="def-card"><strong>R<sup>2</sup> alterei:</strong> {0}, az origón átmenő egyenesek, és a teljes sík (R<sup>2</sup>).</div>
+                <div class="def-card"><strong>R<sup>3</sup> alterei:</strong> {0}, origón átmenő egyenesek, origón átmenő síkok, teljes tér (R<sup>3</sup>).</div>
+            </div>
+            <div class="def-card"><span class="def-title">Lineáris kombináció:</span> Vektorok skalárokkal vett szorzatainak összege: &lambda;<sub>1</sub>v<sub>1</sub> + ... + &lambda;<sub>k</sub>v<sub>k</sub>.</div>
+            <div class="def-card"><span class="def-title">Kifeszített / Generált altér:</span> Egy vektorrendszer összes lehetséges lineáris kombinációja által alkotott altér.</div>
+            <div class="def-card"><span class="def-title">Generátorrendszer:</span> Olyan vektorrendszer, amely az egész teret generálja (kifeszíti).</div>
+            <div class="def-card"><span class="def-title">Lineáris függetlenség:</span> A vektorrendszer független, ha a nullvektor csak csupa nulla együtthatóval (triviális módon) állítható elő belőlük.</div>
+            <div class="def-card"><span class="def-title">Bázis:</span> Lineárisan független generátorrendszer (a tér "vázlata").</div>
+            <div class="def-card"><span class="def-title">Dimenzió:</span> A bázisban található vektorok száma.</div>
+            <div class="def-card"><span class="def-title">Koordináták:</span> Azok az egyértelmű skalárok, amelyekkel egy vektor a bázisvektorokból lineárisan kombinálható.</div>
+        </div>
+
+        <div class="img-box">
+            <img src="vektor_sik.png" alt="Vektorok ábrázolása a síkon">
+            <div class="img-label">Vektorok ábrázolása és koordinátái az R<sup>2</sup> térben</div>
+        </div>
+
+        <div class="section">
+            <h2>3. Lineáris Egyenletrendszerek (LER)</h2>
+            <div class="def-card"><span class="def-title">Megoldhatóság:</span> Egy LER akkor megoldható, ha létezik legalább egy megoldásvektor.</div>
+            <div class="grid-2">
+                <div class="def-card"><strong>Határozott:</strong> Pontosan egy megoldása van.</div>
+                <div class="def-card"><strong>Határozatlan:</strong> Végtelen sok megoldása van.</div>
+                <div class="def-card"><strong>Ellentmondásos:</strong> Nincs megoldása.</div>
+                <div class="def-card"><strong>Homogén/Inhomogén:</strong> Homogén, ha a szabad tagok (b vektor) mind nullák (Ax=0). Inhomogén, ha nem.</div>
+            </div>
+            <div class="formula">Rangkritérium (Kronecker-Capelli tétel):<br>Az Ax = b LER pontosan akkor oldható meg, ha rang(A) = rang(A|b).</div>
+        </div>
+
+        <div class="section">
+            <h2>4. Lineáris leképezések, Sajátérték, Sajátvektor</h2>
+            <div class="def-card"><span class="def-title">Lineáris transzformáció:</span> Olyan leképezés, amely megőrzi a műveleteket: additív f(x+y) = f(x)+f(y) és homogén f(&lambda;x) = &lambda;f(x).</div>
+            <div class="def-card"><span class="def-title">Sajátérték (&lambda;):</span> Az a skalár, amelyre az Ax = &lambda;x egyenletnek van a nullvektortól eltérő megoldása.</div>
+            <div class="def-card"><span class="def-title">Sajátvektor (x):</span> Az a nemnulla vektor, amelyet a leképezés (az A mátrix) nem forgat el, csak nyújt vagy zsugorít (Ax = &lambda;x).</div>
+            <div class="formula">Karakterisztikus egyenlet: det(A - &lambda;E) = 0<br><span style="font-size: 0.8em; color:#94a3b8;">(Ennek a polinomnak a gyökei adják a sajátértékeket)</span></div>
+        </div>
+
+        <div class="section">
+            <h2>5. Kvadratikus formák és Definitség</h2>
+            <div class="def-card"><span class="def-title">Kvadratikus forma:</span> Homogén másodfokú polinom, amely mátrixosan Q(x) = x<sup>T</sup>Ax alakban írható fel, ahol A egy szimmetrikus mátrix.</div>
+            
+            <h3>Definitségi kategóriák (Sajátértékek alapján):</h3>
+            <div class="def-card">
+                <ul>
+                    <li><span class="def-title">Pozitív definit:</span> Minden sajátérték pozitív (&lambda;<sub>i</sub> > 0). Ekkor Q(x) > 0 minden nemnulla x-re.</li>
+                    <li><span class="def-title">Pozitív szemidefinit:</span> Minden sajátérték nemnegatív (&lambda;<sub>i</sub> ≥ 0).</li>
+                    <li><span class="def-title">Negatív definit:</span> Minden sajátérték negatív (&lambda;<sub>i</sub> < 0). Ekkor Q(x) < 0 minden nemnulla x-re.</li>
+                    <li><span class="def-title">Negatív szemidefinit:</span> Minden sajátérték nempozitív (&lambda;<sub>i</sub> ≤ 0).</li>
+                    <li><span class="def-title">Indefinit:</span> Vannak pozitív és negatív sajátértékek is.</li>
+                </ul>
+            </div>
+            <div class="def-card"><span class="def-title">Sylvester-kritérium (Főminorok):</span> Ha nem akarunk sajátértéket számolni, a főminor determinánsok (a bal felső sarkokból képzett al-determinánsok) előjeléből is eldönthető a definitség (pl. pozitív definit, ha minden főminor > 0).</div>
+        </div>
+
+        <div class="section">
+            <h2>6. Euklideszi terek és Belső szorzat</h2>
+            <div class="def-card"><span class="def-title">Skaláris (belső) szorzat:</span> Legyen A egy szimmetrikus, pozitív definit mátrix. Az &lang;x, y&rang;<sub>A</sub> = x<sup>T</sup>Ay kifejezést skaláris szorzatnak nevezzük.</div>
+            <div class="def-card"><span class="def-title">Vektor normája (hossza):</span> A skaláris szorzatból származtatva: ||x|| = &radic;&lang;x, x&rang; = &radic;(x<sup>T</sup>Ax).</div>
+            <div class="def-card"><span class="def-title">Vektorok által bezárt szög:</span> cos(&phi;) = &lang;x, y&rang; / (||x|| &middot; ||y||).</div>
+            <div class="def-card"><span class="def-title">Cauchy-Schwarz egyenlőtlenség:</span> Két vektor skaláris szorzatának abszolút értéke nem haladja meg a normáik szorzatát: |&lang;x, y&rang;| ≤ ||x|| &middot; ||y||.</div>
+            <div class="def-card"><span class="def-title">Ortogonalitás:</span> Két vektor ortogonális (merőleges egymásra), ha skaláris szorzatuk nulla (&lang;x, y&rang; = 0).</div>
+            <div class="def-card"><span class="def-title">Ortogonális mátrix:</span> Olyan négyzetes mátrix, amelynek transzponáltja megegyezik az inverzével: Q<sup>T</sup> = Q<sup>-1</sup> (azaz Q<sup>T</sup>Q = E). Oszlopai ortonormált bázist alkotnak.</div>
+            <div class="def-card"><span class="def-title">Spektráltétel:</span> Minden valós szimmetrikus mátrix ortogonálisan diagonalizálható (létezik sajátvektorokból álló ortonormált bázisa).</div>
+        </div>
+    </div>
+</body>
+</html>
