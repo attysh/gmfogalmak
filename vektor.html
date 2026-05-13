@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. ZH Felkészülés | Gazdasági Matematika 2</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #cbd5e1;
+            --header-bg: #1e293b;
+            --primary-color: #3b82f6;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --math-color: #f472b6;
+            --highlight: #fbbf24;
+            --secondary: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            padding: 1.5rem 5%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 2.5rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+        }
+
+        .tag {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        details {
+            background: var(--card-bg);
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        summary {
+            padding: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--highlight);
+            background: linear-gradient(to right, #1e293b, #1e293b);
+        }
+
+        summary::after {
+            content: '→';
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary::after {
+            transform: rotate(90deg);
+        }
+
+        .content {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .section-intro {
+            font-style: italic;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card {
+            background: rgba(255,255,255,0.02);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .math-box {
+            background: #000;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: var(--math-color);
+            font-weight: bold;
+            overflow-x: auto;
+            border: 1px solid #444;
+        }
+
+        .formula-desc {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+        }
+
+        ul {
+            list-style-position: inside;
+            margin: 1rem 0;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        strong {
+            color: var(--secondary);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1rem; }
+            summary { font-size: 1.1rem; }
+            .container { padding: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Gazdasági Matematika 2</h1>
+        <a href="index.html" style="text-decoration: none; color: var(--primary-color); font-weight: bold; border: 1px solid var(--primary-color); padding: 0.5rem 1rem; border-radius: 8px;">Főoldal</a>
+    </header>
+
+    <div class="container">
+        <div class="quick-nav">
+            <a href="#matrixok" class="tag">1. Mátrixelmélet</a>
+            <a href="#rn-ter" class="tag">2. Az Rⁿ tér</a>
+            <a href="#ler" class="tag">3. Egyenletrendszerek</a>
+            <a href="#lekepezesek" class="tag">4. Lineáris transzformációk</a>
+            <a href="#kvadratikus" class="tag">5. Kvadratikus formák</a>
+            <a href="#euklideszi" class="tag">6. Euklideszi terek</a>
+        </div>
+
+        <details id="matrixok">
+            <summary>1. Mátrixok és alapfogalmak</summary>
+            <div class="content">
+                <p class="section-intro">Bevezetés a számtáblázatok világába és a hozzájuk kapcsolódó strukturális definíciókba[cite: 1827].</p>
+                
+                <div class="card">
+                    <h4>A Mátrix definíciója</h4>
+                    <p>Egy <strong>m</strong> sorral és <strong>n</strong> oszloppal rendelkező számtáblázatot m × n-es mátrixnak nevezünk[cite: 1940]. Az elemeket $a_{ij}$ jelöli, ahol $i$ a sor, $j$ pedig az oszlop indexe[cite: 1942].</p>
+                </div>
+
+                <div class="card">
+                    <h4>Strukturális típusok</h4>
+                    <ul>
+                        <li><strong>Négyzetes (kvadratikus):</strong> Olyan mátrix, ahol a sorok és oszlopok száma megegyezik (n = m)[cite: 1953].</li>
+                        <li><strong>Főátló:</strong> Az $(a_{11}, a_{22}, \dots, a_{kk})$ elemek sorozata, ahol $k = \min(m,n)$[cite: 1954].</li>
+                        <li><strong>Diagonális:</strong> Olyan négyzetes mátrix, melynek főátlóján kívüli összes eleme 0[cite: 1955].</li>
+                        <li><strong>Háromszögmátrix:</strong> Felső, ha a főátló alatt, alsó, ha a főátló felett minden elem 0[cite: 1956].</li>
+                        <li><strong>Egységmátrix (Eₙ):</strong> Olyan négyzetes mátrix, melynek főátlójában csupa 1-es áll, minden más eleme 0[cite: 1958].</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Műveleti fogalmak</h4>
+                    <p><strong>Transzponált (Aᵀ):</strong> Az a mátrix, melynek oszlopai az eredeti mátrix sorai[cite: 2047].</p>
+                    <p><strong>Szimmetrikus mátrix:</strong> Négyzetes mátrix, melyre igaz, hogy $A^T = A$[cite: 2080].</p>
+                    <p><strong>Reguláris vs. Szinguláris:</strong> A mátrix reguláris, ha determinánsa nem nulla ($det(A) \neq 0$), egyébként szinguláris[cite: 2267].</p>
+                </div>
+
+                <div class="card">
+                    <h4>Determináns és Invertálhatóság</h4>
+                    <p>A determináns egy négyzetes mátrixhoz rendelt valós szám[cite: 2124].</p>
+                    <div class="math-box">det(A) = |A| = \sum_{\sigma \in S_n} (-1)^{I(\sigma)} a_{1\sigma(1)} \dots a_{n\sigma(n)}</div>
+                    <span class="formula-desc">A determináns értéke megadja a kifeszített térfogat/terület mértékét[cite: 2194].</span>
+                    <p><strong>Invertálhatóság:</strong> A mátrix invertálható, ha létezik olyan B mátrix, hogy $AB = BA = E$[cite: 2242]. Feltétele: $det(A) \neq 0$[cite: 2269].</p>
+                </div>
+            </div>
+        </details>
+
+        <details id="rn-ter">
+            <summary>2. Az Rⁿ tér és alterei</summary>
+            <div class="content">
+                <p class="section-intro">A vektorok halmaza, műveleti zártság és a tér szerkezeti elemei[cite: 1836].</p>
+                
+                <div class="card">
+                    <h4>Altér és Lineáris kombináció</h4>
+                    <p><strong>Altér (W):</strong> A vektortér nemüres részhalmaza, mely maga is vektortér, azaz zárt az összeadásra és a skalárszorzásra[cite: 2345].</p>
+                    <p><strong>Lineáris kombináció:</strong> Vektorok skalárokkal vett szorzatainak összege[cite: 2401].</p>
+                    <div class="math-box">\lambda_1 v_1 + \lambda_2 v_2 + \dots + \lambda_k v_k</div>
+                </div>
+
+                <div class="card">
+                    <h4>Függetlenség és Bázis</h4>
+                    <ul>
+                        <li><strong>Lineárisan független:</strong> Ha a nullvektor csak csupa nulla együtthatóval állítható elő belőlük[cite: 2445].</li>
+                        <li><strong>Bázis:</strong> Lineárisan független generátorrendszer[cite: 2482].</li>
+                        <li><strong>Dimenzió (dim):</strong> A bázis vektorainak száma[cite: 2494].</li>
+                        <li><strong>Rang:</strong> A vektorrendszer rangja az általa generált altér dimenziója[cite: 2520].</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Alterek az R² és R³ térben</h4>
+                    <p><strong>R² alterei:</strong> A {0}, az origón átmenő egyenesek és a teljes sík[cite: 2386].</p>
+                    <p><strong>R³ alterei:</strong> A {0}, az origón átmenő egyenesek, síkok és a teljes tér[cite: 2390].</p>
+                </div>
+            </div>
+        </details>
+
+        <details id="ler">
+            <summary>3. Lineáris egyenletrendszerek (LER)</summary>
+            <div class="content">
+                <div class="card">
+                    <h4>Definíció és Típusok</h4>
+                    <p><strong>Homogén LER:</strong> Ha a szabad tagok vektora nulla ($Ax = 0$)[cite: 2729].</p>
+                    <p><strong>Inhomogén LER:</strong> Ha legalább egy szabad tag nem nulla[cite: 2729].</p>
+                </div>
+
+                <div class="card">
+                    <h4>Megoldhatóság állapota</h4>
+                    <ul>
+                        <li><strong>Határozott:</strong> Pontosan egy megoldás létezik[cite: 2628].</li>
+                        <li><strong>Határozatlan:</strong> Egynél több (végtelen sok) megoldás létezik[cite: 2629].</li>
+                        <li><strong>Ellentmondásos:</strong> Nincs megoldás[cite: 2630].</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Rangkritérium tétel</h4>
+                    <p>A LER pontosan akkor oldható meg, ha az alapmátrix rangja megegyezik a kibővített mátrix rangjával[cite: 2668].</p>
+                    <div class="math-box">rang(A) = rang(A|b)</div>
+                    <p>Ha ez teljesül és $rang(A) = n$, a rendszer határozott[cite: 2671].</p>
+                </div>
+            </div>
+        </details>
+
+        <details id="lekepezesek">
+            <summary>4. Lineáris transzformációk és sajátértékek</summary>
+            <div class="content">
+                <div class="card">
+                    <h4>Lineáris transzformáció</h4>
+                    <p>Olyan leképezés, mely <strong>additív</strong> ($f(v+w) = f(v)+f(w)$) és <strong>homogén</strong> ($f(\lambda v) = \lambda f(v)$)[cite: 2755, 2756].</p>
+                </div>
+
+                <div class="card">
+                    <h4>Transzformációs mátrixok (Síkon)</h4>
+                    <ul>
+                        <li><strong>Nagyítás/Kicsinyítés (λ):</strong> Diagonális mátrix [$\lambda$ 0; 0 $\lambda$] alakban[cite: 2782].</li>
+                        <li><strong>Elforgatás (α):</strong> [$\cos \alpha$ -$\sin \alpha$; $\sin \alpha$ $\cos \alpha$][cite: 2783].</li>
+                        <li><strong>Tükrözés:</strong> [$\cos(2\alpha)$ $\sin(2\alpha)$; $\sin(2\alpha)$ -$\cos(2\alpha)$][cite: 2785].</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Sajátérték és Sajátvektor</h4>
+                    <p><strong>Sajátvektor (x):</strong> Olyan nemnulla vektor, melyet a mátrixszorzás csak nyújt vagy zsugorít[cite: 2824].</p>
+                    <p><strong>Sajátérték (λ):</strong> A nyújtási tényező[cite: 2826].</p>
+                    <div class="math-box">Ax = \lambda x \implies det(A - \lambda E) = 0</div>
+                    <span class="formula-desc">A karakterisztikus polinom gyökei adják a sajátértékeket[cite: 2831, 2832].</span>
+                </div>
+            </div>
+        </details>
+
+        <details id="kvadratikus">
+            <summary>5. Kvadratikus formák és definitség</summary>
+            <div class="content">
+                <div class="card">
+                    <h4>Definíció</h4>
+                    <p>Egy A szimmetrikus mátrix által meghatározott $Q(x) = x^T Ax$ függvény[cite: 2932, 2935].</p>
+                </div>
+
+                <div class="card">
+                    <h4>Definitségi kategóriák</h4>
+                    <ul>
+                        <li><strong>Pozitív definit:</strong> $Q(x) > 0$ minden $x \neq 0$ esetén[cite: 2948]. Sajátértékekre: minden $\lambda_i > 0$[cite: 2953].</li>
+                        <li><strong>Negatív definit:</strong> $Q(x) < 0$ minden $x \neq 0$ esetén[cite: 2949]. Sajátértékekre: minden $\lambda_i < 0$[cite: 2955].</li>
+                        <li><strong>Indefinit:</strong> Felvesz pozitív és negatív értékeket is[cite: 2950]. Sajátértékekre: van pozitív és negatív is[cite: 2957].</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+
+        <details id="euklideszi">
+            <summary>6. Euklideszi terek és ortogonalitás</summary>
+            <div class="content">
+                <div class="card">
+                    <h4>Belső szorzat és Norma</h4>
+                    <p><strong>Skaláris szorzat:</strong> $\langle x,y \rangle_A = x^T Ay$[cite: 2981].</p>
+                    <p><strong>Norma (hossz):</strong> A vektor önmagával vett belső szorzatának gyöke[cite: 3010, 3011].</p>
+                    <div class="math-box">||x|| = \sqrt{\langle x,x \rangle}</div>
+                </div>
+
+                <div class="card">
+                    <h4>Ortogonalitás</h4>
+                    <p><strong>Vektorok:</strong> Ha skaláris szorzatuk 0[cite: 3027].</p>
+                    <p><strong>Ortogonális mátrix:</strong> Olyan négyzetes mátrix, melynek transzponáltja megegyezik az inverzével ($Q^T = Q^{-1}$)[cite: 3043].</p>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <footer style="text-align: center; padding: 2rem; color: #64748b; font-size: 0.8rem; border-top: 1px solid var(--border-color); margin-top: 3rem;">
+        Készült a Gazdasági Matematika 2 előadásanyaga (Aradi Bernadett, 2026 tavasz) alapján.
+    </footer>
+
+</body>
+</html>

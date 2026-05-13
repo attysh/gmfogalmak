@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tananyag | Gazdasági Matematika 2</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #334155;
+            --header-bg: #ffffff;
+            --primary-color: #2563eb;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --accent: #eff6ff;
+            --math-color: #0f172a;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0f172a;
+                --text-color: #cbd5e1;
+                --header-bg: #1e293b;
+                --primary-color: #3b82f6;
+                --card-bg: #1e293b;
+                --border-color: #334155;
+                --accent: #1e293b;
+                --math-color: #f8fafc;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary-color);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Navigáció / Kereső alternatíva */
+        .quick-nav {
+            margin: 2rem auto;
+            max-width: 900px;
+            padding: 0 1rem;
+        }
+        .quick-nav h3 {
+            margin-bottom: 1rem;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tag {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .tag:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        details {
+            background: var(--card-bg);
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        summary {
+            padding: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--header-bg);
+            transition: background-color 0.3s;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .content {
+            padding: 1.5rem;
+            animation: slideDown 0.3s ease-in-out;
+        }
+
+        /* Kártyák a részletekhez */
+        .card {
+            background-color: var(--accent);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .citation {
+            font-size: 0.8rem;
+            color: #888;
+            vertical-align: super;
+        }
+
+        /* HTML/CSS Képlet formázó JS nélkül */
+        .math-box {
+            background: var(--bg-color);
+            padding: 1rem;
+            border: 1px dashed var(--border-color);
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.2rem;
+            color: var(--math-color);
+            overflow-x: auto;
+        }
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 0.2em;
+        }
+        .frac span { padding: 0 0.2em; }
+        .frac span.bottom { border-top: 1px solid var(--math-color); }
+        .binom {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            position: relative;
+            padding: 0 0.5em;
+        }
+        .binom::before { content: '('; position: absolute; left: 0; top: 0; bottom: 0; font-size: 1.5em; font-weight: lighter; display: flex; align-items: center;}
+        .binom::after { content: ')'; position: absolute; right: 0; top: 0; bottom: 0; font-size: 1.5em; font-weight: lighter; display: flex; align-items: center;}
+
+        :target {
+            animation: highlight 2s ease-out;
+        }
+
+        @keyframes highlight {
+            0% { box-shadow: 0 0 0 3px var(--primary-color); }
+            100% { box-shadow: 0 0 0 0 transparent; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Gazdasági Matematika 2</h1>
+        <a href="index.html" class="back-btn">Vissza a főoldalra</a>
+    </header>
+
+    <div class="quick-nav">
+        <h3>Gyorskereső / Témakörök ugrás:</h3>
+        <div class="tags">
+            <a href="#kombinatorika" class="tag">6. Kombinatorika</a>
+            <a href="#valoszinusegi-mezo" class="tag">7. Valószínűségi mező</a>
+            <a href="#felteteles" class="tag">8. Feltételes valószínűség</a>
+            <a href="#valtozok" class="tag">9. Valószínűségi változók</a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <details id="kombinatorika">
+            <summary>6. Kombinatorika</summary>
+            <div class="content">
+                <p>A kombinatorika fogalmai elengedhetetlenek a leszámlálási problémák megoldásához és a valószínűségszámításhoz <span class="citation"></span>.</p>
+                
+                <div class="card">
+                    <h4>Permutáció (Ismétlés nélküli és Ismétléses)</h4>
+                    <p><strong>Permutáció:</strong> n különböző elem lehetséges sorbarendezéseinek a száma <span class="citation"></span>.</p>
+                    <div class="math-box">
+                        P<sub>n</sub> = n! = n &middot; (n-1) &middot; ... &middot; 2 &middot; 1
+                    </div>
+                    <p><strong>Ismétléses permutáció:</strong> n elem sorbarendezése, melyek között vannak azonosak <span class="citation"></span>. Ha n elemünk van k különböző fajtából (l<sub>1</sub>, l<sub>2</sub>, ... l<sub>k</sub>), a lehetséges sorrendek száma <span class="citation"></span>:</p>
+                    <div class="math-box">
+                        P<sub>n</sub><sup>l<sub>1</sub>,...,l<sub>k</sub></sup> = 
+                        <div class="frac">
+                            <span>n!</span>
+                            <span class="bottom">l<sub>1</sub>! &middot; ... &middot; l<sub>k</sub>!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Variáció (Ismétlés nélküli és Ismétléses)</h4>
+                    <p><strong>Variáció:</strong> Egy n elemű halmaz elemeiből kiválasztott k hosszúságú sorozatok <span class="citation"></span>. Lényege: kiválasztás és sorbarendezés <span class="citation"></span>.</p>
+                    <div class="math-box">
+                        V<sub>n,k</sub> = 
+                        <div class="frac">
+                            <span>n!</span>
+                            <span class="bottom">(n-k)!</span>
+                        </div>
+                    </div>
+                    <p><strong>Ismétléses variáció:</strong> Visszatevéssel kiválasztott k hosszúságú sorozatok. Egy elemet többször is választhatunk <span class="citation"></span>.</p>
+                    <div class="math-box">
+                        V<sup>i</sup><sub>n,k</sub> = n<sup>k</sup>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Kombináció (Ismétlés nélküli és Ismétléses)</h4>
+                    <p><strong>Kombináció:</strong> Egy n elemű halmaz k elemű részhalmazai <span class="citation"></span>. Lényege: csak a kiválasztás számít (sorrend nem) <span class="citation"></span>.</p>
+                    <div class="math-box">
+                        C<sub>n,k</sub> = 
+                        <div class="frac">
+                            <span>n!</span>
+                            <span class="bottom">k!(n-k)!</span>
+                        </div>
+                        = 
+                        <div class="binom">
+                            <span>n</span>
+                            <span>k</span>
+                        </div>
+                    </div>
+                    <p><strong>Ismétléses kombináció:</strong> Visszatevéssel képezünk k elemű halmazt az n elemből <span class="citation"></span>.</p>
+                    <div class="math-box">
+                        C<sup>i</sup><sub>n,k</sub> = 
+                        <div class="binom">
+                            <span>n + k - 1</span>
+                            <span>k</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Binomiális tétel</h4>
+                    <p>A binomiális tétel segítségével felírható kéttagú összegek hatványa <span class="citation"></span>:</p>
+                    <div class="math-box">
+                        (x + y)<sup>n</sup> = &sum; 
+                        <div class="binom">
+                            <span>n</span>
+                            <span>k</span>
+                        </div>
+                        x<sup>k</sup>y<sup>n-k</sup>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details id="valoszinusegi-mezo">
+            <summary>7. Valószínűségi mező</summary>
+            <div class="content">
+                <div class="card">
+                    <h4>Eseménytér és Elemi esemény</h4>
+                    <p><strong>Eseménytér (&Omega;):</strong> Rögzített, nemüres halmaz. Elemeit elemi eseményeknek nevezzük <span class="citation"></span>.</p>
+                    <p><strong>Elemi esemény:</strong> Egy kísérlet, vizsgált jelenség lehetséges kimenetelei <span class="citation"></span>. Például kockadobásnál: &Omega; = {&omega;<sub>1</sub>, ..., &omega;<sub>6</sub>} <span class="citation"></span>.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Eseményalgebra és &sigma;-algebra</h4>
+                    <p><strong>Eseményalgebra (A):</strong> Az &Omega; bizonyos részhalmazainak rendszere, ha tartalmazza a biztos eseményt (&Omega; &isin; A), zárt a komplementerképzésre és a véges unióképzésre <span class="citation"></span>.</p>
+                    <p><strong>&sigma;-algebra:</strong> Olyan eseményalgebra, amely a megszámlálható unióképzésre is zárt <span class="citation"></span>.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Valószínűségi függvény és mező</h4>
+                    <p><strong>Valószínűségi függvény (P):</strong> P: A &rarr; R függvény, melyre teljesül: P(A) &ge; 0, P(&Omega;) = 1, és &sigma;-additív (egymást kizáró események uniójának valószínűsége a valószínűségek összege) <span class="citation"></span>.</p>
+                    <p><strong>Valószínűségi mező:</strong> Az (&Omega;, A, P) hármas alkotja a valószínűségi mezőt <span class="citation"></span>.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Klasszikus és Diszkrét valószínűségi mező</h4>
+                    <p><strong>Klasszikus:</strong> Az &Omega; véges, A = 2<sup>&Omega;</sup>, és minden elemi esemény egyenlően valószínű <span class="citation"></span>.</p>
+                    <div class="math-box">
+                        P(A) = 
+                        <div class="frac">
+                            <span>k</span>
+                            <span class="bottom">n</span>
+                        </div>
+                        =
+                        <div class="frac">
+                            <span>kedvező esetek száma</span>
+                            <span class="bottom">összes eset száma</span>
+                        </div>
+                    </div>
+                    <p><strong>Diszkrét:</strong> Az &Omega; megszámlálható halmaz (véges vagy megszámlálhatóan végtelen), és A = 2<sup>&Omega;</sup> <span class="citation"></span>.</p>
+                </div>
+            </div>
+        </details>
+
+        <details id="felteteles">
+            <summary>8. Feltételes valószínűség, függetlenség</summary>
+            <div class="content">
+                <div class="card">
+                    <h4>Feltételes valószínűség</h4>
+                    <p>Az A esemény feltételes valószínűsége a B feltétel mellett (ha tudjuk, hogy B bekövetkezett és P(B) &gt; 0) <span class="citation"></span>:</p>
+                    <div class="math-box">
+                        P(A | B) = 
+                        <div class="frac">
+                            <span>P(AB)</span>
+                            <span class="bottom">P(B)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Teljes eseményrendszer és Teljes valószínűség tétele</h4>
+                    <p><strong>Teljes eseményrendszer:</strong> A<sub>1</sub>, A<sub>2</sub>, ... A<sub>n</sub> események pozitív valószínűségűek, egymást páronként kizárják és összegük a teljes eseménytér <span class="citation"></span>.</p>
+                    <p><strong>Teljes valószínűség tétele:</strong> Tetszőleges B esemény esetén <span class="citation"></span>:</p>
+                    <div class="math-box">
+                        P(B) = &sum; P(B | A<sub>i</sub>) &middot; P(A<sub>i</sub>)
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Bayes-formula és Bayes-tétel</h4>
+                    <p>A feltételes valószínűség megfordítására szolgáló összefüggés <span class="citation"></span>:</p>
+                    <div class="math-box">
+                        P(A<sub>j</sub> | B) = 
+                        <div class="frac">
+                            <span>P(B | A<sub>j</sub>) &middot; P(A<sub>j</sub>)</span>
+                            <span class="bottom">&sum; P(B | A<sub>i</sub>) &middot; P(A<sub>i</sub>)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Események függetlensége</h4>
+                    <p><strong>Két esemény függetlensége:</strong> P(A &middot; B) = P(A) &middot; P(B) <span class="citation"></span>.</p>
+                    <p><strong>Páronkénti függetlenség:</strong> Az események közül bármely két esemény független <span class="citation"></span>.</p>
+                    <p><strong>Teljes függetlenség:</strong> Tetszőleges különböző indexek esetén a szorzatuk valószínűsége a valószínűségek szorzata <span class="citation"></span>.</p>
+                </div>
+            </div>
+        </details>
+
+        <details id="valtozok">
+            <summary>9. Valószínűségi változók</summary>
+            <div class="content">
+                <div class="card">
+                    <h4>Valószínűségi változó és Eloszlásfüggvény</h4>
+                    <p><strong>Valószínűségi változó (&xi;):</strong> &xi;: &Omega; &rarr; R függvény, ha tetszőleges x &isin; R esetén {&omega; &isin; &Omega; | &xi;(&omega;) &lt; x} &isin; A <span class="citation"></span>.</p>
+                    <p><strong>Eloszlásfüggvény:</strong> F<sub>&xi;</sub>(x) = P(&xi; &lt; x) <span class="citation"></span>.</p>
+                    <p><strong>Tulajdonságai:</strong> Monoton növekvő; balról folytonos; határértéke -&infin;-ben 0, +&infin;-ben 1 <span class="citation"></span>.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Diszkrét valószínűségi változó és Nevezetes eloszlások</h4>
+                    <p>A &xi; diszkrét, ha értékkészlete megszámlálható <span class="citation"></span>.</p>
+                    <ul>
+                        <li><strong>Binomiális:</strong> &xi; &sim; Bin(n,p). P(&xi;=k) = <div class="binom"><span>n</span><span>k</span></div> p<sup>k</sup> (1-p)<sup>n-k</sup> <span class="citation"></span>.</li>
+                        <li><strong>Negatív binomiális:</strong> Ismételjük a kísérletet, amíg r-szer be nem következik <span class="citation"></span>. P(&xi;=k+r) = <div class="binom"><span>k+r-1</span><span>r-1</span></div> p<sup>r</sup> (1-p)<sup>k</sup> <span class="citation"></span>.</li>
+                        <li><strong>Geometriai:</strong> Elsőrendű negatív binomiális eloszlás. P(&xi;=k+1) = p(1-p)<sup>k</sup> <span class="citation"></span>.</li>
+                        <li><strong>Poisson-eloszlás:</strong> P(&xi;=k) = <div class="frac"><span>&lambda;<sup>k</sup></span><span class="bottom">k!</span></div> e<sup>-&lambda;</sup> <span class="citation"></span>.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Várható érték, Szórásnégyzet, Szórás</h4>
+                    <p><strong>Várható érték:</strong> E&xi; = &sum; x<sub>k</sub> &middot; P(&xi;=x<sub>k</sub>) <span class="citation"></span>. Függvényének várható értéke: E(g(&xi;)) = &sum; g(x<sub>k</sub>) &middot; P(&xi;=x<sub>k</sub>) <span class="citation"></span>.</p>
+                    <p><strong>Szórásnégyzet:</strong> D<sup>2</sup>&xi; = E(&xi;-m)<sup>2</sup> <span class="citation"></span>. Kiszámítása: D<sup>2</sup>&xi; = E(&xi;<sup>2</sup>) - (E&xi;)<sup>2</sup> <span class="citation"></span>.</p>
+                    <p><strong>Szórás:</strong> D&xi; = &radic;(D<sup>2</sup>&xi;) <span class="citation"></span>.</p>
+                    <p><em>Binomiális:</em> E&xi;=np, D<sup>2</sup>&xi;=np(1-p) <span class="citation"></span>.<br>
+                       <em>Geometriai:</em> E&xi;=1/p, D<sup>2</sup>&xi;=(1-p)/p<sup>2</sup> <span class="citation"></span>.<br>
+                       <em>Poisson:</em> E&xi;=&lambda;, D<sup>2</sup>&xi;=&lambda; <span class="citation"></span>.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Sűrűségfüggvény és Normális eloszlás</h4>
+                    <p><strong>Sűrűségfüggvény:</strong> Folytonos eloszlás esetén az f(x) függvény, melyre F(x) = &int;<sub>-&infin;</sub><sup>x</sup> f(t) dt <span class="citation"></span>.</p>
+                    <p><strong>Normális eloszlás:</strong> &xi; &sim; N(m, &sigma;<sup>2</sup>). Sűrűségfüggvénye a haranggörbe <span class="citation"></span>.</p>
+                    <p><strong>Standard normális eloszlás:</strong> N(0,1), vágott sűrűségfüggvénnyel, f(x) = (1/&radic;(2&pi;)) e<sup>-x<sup>2</sup>/2</sup> <span class="citation"></span>.</p>
+                </div>
+            </div>
+        </details>
+
+    </div>
+
+</body>
+</html>
