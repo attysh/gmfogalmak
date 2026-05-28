@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="hu" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gazdasági Matematika 2 | Interaktív Tudástár</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+      MathJax = {
+        tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+        svg: { fontCache: 'global' }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'sans-serif'], mono: ['Space Grotesk', 'monospace'] },
+                    colors: { primary: '#3b82f6', darkbg: '#0f172a', panelbg: 'rgba(30, 41, 59, 0.7)' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0f172a; color: #e2e8f0; overflow-x: hidden; }
+        .glass-panel { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-card { background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass-card:hover { border: 1px solid rgba(59, 130, 246, 0.5); box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
+        
+        /* Horizontal scroll wrapper */
+        .h-scroll-container { width: 500vw; height: 100vh; display: flex; flex-wrap: nowrap; }
+        .h-section { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        
+        /* Animated Background Gradients */
+        .bg-blob { position: absolute; filter: blur(80px); opacity: 0.4; z-index: -1; animation: float 10s infinite ease-in-out alternate; }
+        @keyframes float { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-30px) scale(1.1); } }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary selection:text-white">
+
+    <div class="bg-blob w-96 h-96 bg-blue-600 rounded-full top-20 left-20"></div>
+    <div class="bg-blob w-96 h-96 bg-indigo-600 rounded-full bottom-20 right-20" style="animation-delay: -5s;"></div>
+
+    <header class="fixed top-0 w-full z-40 glass-panel transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group">
+                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-primary transition-all">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div>
+                <span class="font-semibold tracking-wide uppercase text-sm">Vissza</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-6">
+                <div class="relative group">
+                    <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="searchInput" placeholder="Keresés a fogalmak között..." class="bg-white/5 border border-white/10 rounded-full py-2 pl-12 pr-6 text-sm focus:outline-none focus:border-primary w-64 focus:w-80 transition-all duration-300 text-white placeholder-gray-500">
+                </div>
+                <div id="progress-indicator" class="text-xs font-mono text-primary font-bold tracking-widest">01 / 05</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="overflow-x-hidden relative z-10">
+        <div class="h-scroll-container">
+            
+            <section class="h-section panel" data-index="1">
+                <div class="text-center max-w-4xl px-6 relative z-10">
+                    <h4 class="text-primary font-mono tracking-widest mb-4">I. Témakör</h4>
+                    <h1 class="text-5xl md:text-7xl font-extrabold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">Vektorok és Mátrixok</h1>
+                    <p class="text-xl text-gray-400 mb-10 font-light">Az \(\mathbb{R}^n\) tér alapjai, mátrixműveletek, determináns és rang.</p>
+                    <button onclick="openPanel('topic1')" class="px-8 py-4 bg-primary/20 text-primary border border-primary/50 hover:bg-primary hover:text-white rounded-full font-semibold transition-all duration-300 flex items-center justify-center gap-3 mx-auto group">
+                        Tananyag megnyitása <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section class="h-section panel" data-index="2">
+                <div class="text-center max-w-4xl px-6 relative z-10">
+                    <h4 class="text-indigo-400 font-mono tracking-widest mb-4">II. Témakör</h4>
+                    <h1 class="text-5xl md:text-7xl font-extrabold mb-8 text-white">Az \(\mathbb{R}^n\) tér</h1>
+                    <p class="text-xl text-gray-400 mb-10 font-light">Alterek, lineáris kombinációk, generátorrendszerek és bázisok tulajdonságai.</p>
+                    <button onclick="openPanel('topic2')" class="px-8 py-4 bg-indigo-500/20 text-indigo-400 border border-indigo-500/50 hover:bg-indigo-500 hover:text-white rounded-full font-semibold transition-all duration-300 flex items-center justify-center gap-3 mx-auto group">
+                        Tananyag megnyitása <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section class="h-section panel" data-index="3">
+                <div class="text-center max-w-4xl px-6 relative z-10">
+                    <h4 class="text-emerald-400 font-mono tracking-widest mb-4">III. Témakör</h4>
+                    <h1 class="text-5xl md:text-7xl font-extrabold mb-8 text-white">Lineáris Egyenletrendszerek</h1>
+                    <p class="text-xl text-gray-400 mb-10 font-light">Megoldhatóság, rangkritérium, homogén és inhomogén rendszerek.</p>
+                    <button onclick="openPanel('topic3')" class="px-8 py-4 bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 hover:bg-emerald-500 hover:text-white rounded-full font-semibold transition-all duration-300 flex items-center justify-center gap-3 mx-auto group">
+                        Tananyag megnyitása <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section class="h-section panel" data-index="4">
+                <div class="text-center max-w-4xl px-6 relative z-10">
+                    <h4 class="text-purple-400 font-mono tracking-widest mb-4">IV. Témakör</h4>
+                    <h1 class="text-5xl md:text-7xl font-extrabold mb-8 text-white">Lineáris Leképezések</h1>
+                    <p class="text-xl text-gray-400 mb-10 font-light">Transzformációk mátrixai, sajátértékek és karakterisztikus polinom.</p>
+                    <button onclick="openPanel('topic4')" class="px-8 py-4 bg-purple-500/20 text-purple-400 border border-purple-500/50 hover:bg-purple-500 hover:text-white rounded-full font-semibold transition-all duration-300 flex items-center justify-center gap-3 mx-auto group">
+                        Tananyag megnyitása <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section class="h-section panel" data-index="5">
+                <div class="text-center max-w-4xl px-6 relative z-10">
+                    <h4 class="text-pink-400 font-mono tracking-widest mb-4">V. Témakör</h4>
+                    <h1 class="text-5xl md:text-7xl font-extrabold mb-8 text-white">Kvadratikus Formák</h1>
+                    <p class="text-xl text-gray-400 mb-10 font-light">Definitség, euklideszi terek, skaláris szorzat és ortogonalitás.</p>
+                    <button onclick="openPanel('topic5')" class="px-8 py-4 bg-pink-500/20 text-pink-400 border border-pink-500/50 hover:bg-pink-500 hover:text-white rounded-full font-semibold transition-all duration-300 flex items-center justify-center gap-3 mx-auto group">
+                        Tananyag megnyitása <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div id="modal-wrapper" class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none hidden">
+        <div id="modal-overlay" class="absolute inset-0 bg-slate-900/80 backdrop-blur-md opacity-0 transition-opacity duration-300" onclick="closePanel()"></div>
+        
+        <div id="modal-box" class="relative w-full max-w-4xl max-h-[85vh] mx-4 flex flex-col bg-slate-800/60 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+            
+            <div class="sticky top-0 bg-slate-800/80 backdrop-blur-lg border-b border-white/10 px-8 py-6 flex items-center justify-between z-10 rounded-t-3xl">
+                <div>
+                    <h2 id="panel-title" class="text-3xl font-bold text-white tracking-tight">Témakör részletei</h2>
+                    <div id="panel-subtitle" class="text-sm text-primary font-mono mt-1 tracking-widest uppercase">Dinamikus tartalom betöltése...</div>
+                </div>
+                <button onclick="closePanel()" class="w-12 h-12 rounded-full bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-400 flex items-center justify-center transition-all duration-300 group">
+                    <i class="fa-solid fa-xmark text-xl group-hover:rotate-90 transition-transform"></i>
+                </button>
+            </div>
+
+            <div id="panel-scroll-area" class="overflow-y-auto p-8 relative scroll-smooth flex-1">
+                <div id="panel-content" class="flex flex-col gap-6 max-w-3xl mx-auto">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Database of content extracted from PDF
+        const dataMap = {
+            topic1: {
+                title: "Vektorok és Mátrixok",
+                subtitle: "Az \\(\\mathbb{R}^n\\) tér vektorai, mátrixok",
+                cards: [
+                    { type: 'Definíció', title: 'Mátrix', content: 'Egy \\(m\\) sorral és \\(n\\) oszloppal rendelkező számtáblázatot \\(m \\times n\\)-es mátrixnak nevezünk.', icon: 'fa-table-cells' },
+                    { type: 'Fogalom', title: 'Négyzetes mátrix', content: 'Ha \\(n=m\\), a mátrix négyzetes. Ha a főátlóján kívül csupa 0 szerepel, akkor diagonális mátrix.', icon: 'fa-square' },
+                    { type: 'Definíció', title: 'Egységmátrix', content: 'Azon \\(n \\times n\\)-es mátrixot, melynek főátlójában csupa 1-es áll, minden más eleme 0, \\(n\\)-edrendű egységmátrixnak nevezzük.', icon: 'fa-1' },
+                    { type: 'Definíció', title: 'Transzponált', content: 'Azt az \\(A^T\\)-vel jelölt \\(n \\times m\\)-es mátrixot, amelynek oszlopai az \\(A\\) sorai, az \\(A\\) transzponáltjának nevezzük.', icon: 'fa-rotate' },
+                    { type: 'Definíció', title: 'Szimmetrikus mátrix', content: 'Az \\(A\\) mátrixot szimmetrikusnak nevezzük, ha \\(A^T = A\\). Ekkor szükségképpen négyzetes.', icon: 'fa-equals' },
+                    { type: 'Definíció', title: 'Determináns', content: 'Négyzetes mátrixhoz rendelt valós szám. Jelentése geometriailag pl. a vektorok által kifeszített parallelogramma előjeles területe (vagy térfogata).', icon: 'fa-cube' },
+                    { type: 'Tétel', title: 'Invertálhatóság', content: 'Egy négyzetes mátrix pontosan akkor invertálható, ha reguláris, azaz determinánsa nem nulla: \\(det(A) \\neq 0\\).', icon: 'fa-arrows-rotate' },
+                    { type: 'Definíció', title: 'Mátrix rangja', content: 'Egy mátrix rangja alatt a mátrix sorai (vagy oszlopai), mint vektorok által alkotott vektorrendszer rangját értjük.', icon: 'fa-layer-group' }
+                ]
+            },
+            topic2: {
+                title: "Az \\(\\mathbb{R}^n\\) tér",
+                subtitle: "Alterek, bázis, dimenzió",
+                cards: [
+                    { type: 'Definíció', title: 'Altér', content: 'A \\(V\\) vektortér egy nemüres \\(W\\) részhalmazát alterének nevezzük, ha maga is vektortér (zárt az összeadásra és a skalárral való szorzásra).', icon: 'fa-vector-square' },
+                    { type: 'Fogalom', title: 'Triviális alterek', content: 'A nullvektort tartalmazó \\(\\{0\\}\\) halmaz és a teljes \\(V\\) vektortér mindig altér.', icon: 'fa-circle-dot' },
+                    { type: 'Definíció', title: 'Lineáris kombináció', content: 'A \\(\\lambda_1 v_1 + \\dots + \\lambda_k v_k\\) alakú vektorok. Generátorrendszer az, melynek lineáris kombinációival a teljes tér előáll.', icon: 'fa-plus-minus' },
+                    { type: 'Definíció', title: 'Bázis', content: 'A vektortér egy lineárisan független generátorrendszerét bázisnak nevezzük.', icon: 'fa-cubes' },
+                    { type: 'Definíció', title: 'Dimenzió', content: 'A vektortér bármely két bázisa azonos számosságú. Ezt a közös véges számosságot a vektortér dimenziójának nevezzük.', icon: 'fa-ruler-combined' }
+                ]
+            },
+            topic3: {
+                title: "Lineáris Egyenletrendszerek",
+                subtitle: "Megoldhatóság és rangkritérium",
+                cards: [
+                    { type: 'Fogalom', title: 'Megoldhatóság típusai', content: 'Egy egyenletrendszer határozott (1 megoldás), határozatlan (több megoldás), vagy ellentmondásos (nincs megoldás).', icon: 'fa-scale-balanced' },
+                    { type: 'Tétel', title: 'Rangkritérium', content: 'Egy lineáris egyenletrendszer pontosan akkor oldható meg, ha az alapmátrix rangja megegyezik a kibővített mátrix rangjával: \\(rang(A) = rang(A|b)\\).', icon: 'fa-check-double' },
+                    { type: 'Definíció', title: 'Homogén egyenletrendszer', content: 'A lineáris egyenletrendszer homogén, ha a szabad tagok vektora nulla (\\(b=0\\)). Ennek a nullvektor mindig (triviális) megoldása.', icon: 'fa-0' }
+                ]
+            },
+            topic4: {
+                title: "Lineáris Leképezések",
+                subtitle: "Transzformációk, sajátérték, sajátvektor",
+                cards: [
+                    { type: 'Definíció', title: 'Lineáris transzformáció', content: 'Egy \\(\\varphi\\) leképezés lineáris transzformáció, ha additív és homogén.', icon: 'fa-shuffle' },
+                    { type: 'Definíció', title: 'Sajátvektor és sajátérték', content: 'Egy nemnulla \\(x\\) vektor sajátvektor, ha létezik \\(\\lambda\\) skalár, hogy \\(Ax = \\lambda x\\). A \\(\\lambda\\) szám a sajátérték.', icon: 'fa-arrows-to-circle' },
+                    { type: 'Definíció', title: 'Karakterisztikus polinom', content: 'Az \\(n\\)-edfokú \\(det(A-\\lambda E)\\) polinom. Gyökei adják a mátrix sajátértékeit.', icon: 'fa-chart-line' }
+                ]
+            },
+            topic5: {
+                title: "Kvadratikus Formák",
+                subtitle: "Euklideszi terek és definitség",
+                cards: [
+                    { type: 'Definíció', title: 'Kvadratikus forma', content: 'Legyen \\(A\\) szimmetrikus mátrix. A \\(Q(x) = x^T A x\\) függvény kvadratikus forma.', icon: 'fa-superscript' },
+                    { type: 'Tétel', title: 'Definitség sajátértékekkel', content: 'Pozitív definit, ha minden \\(\\lambda_i > 0\\). Pozitív szemidefinit, ha minden \\(\\lambda_i \\ge 0\\). Negatív definit, ha minden \\(\\lambda_i < 0\\). Indefinit, ha van pozitív és negatív is.', icon: 'fa-wave-square' },
+                    { type: 'Definíció', title: 'Skaláris szorzat', content: 'Szimmetrikus, pozitív definit \\(A\\) mátrix esetén \\(\\langle x, y \\rangle_A = x^T A y\\).', icon: 'fa-asterisk' },
+                    { type: 'Definíció', title: 'Norma (Hossz)', content: 'Egy \\(x\\) vektor normája az euklideszi térben: \\(||x|| = \\sqrt{\\langle x, x \\rangle}\\).', icon: 'fa-ruler' },
+                    { type: 'Definíció', title: 'Ortogonális mátrix', content: 'Egy négyzetes \\(Q\\) mátrix ortogonális, ha \\(Q^{-1} = Q^T\\).', icon: 'fa-border-none' }
+                ]
+            }
+        };
+
+        // --- GSAP Horizontal Scroll Setup ---
+        gsap.registerPlugin(ScrollTrigger);
+        const container = document.querySelector(".h-scroll-container");
+        const sections = gsap.utils.toArray(".h-section");
+
+        let scrollTween = gsap.to(sections, {
+            xPercent: -100 * (sections.length - 1),
+            ease: "none",
+            scrollTrigger: {
+                trigger: container,
+                pin: true,
+                scrub: 1,
+                snap: 1 / (sections.length - 1),
+                end: () => "+=" + container.offsetWidth,
+                onUpdate: (self) => {
+                    const progress = Math.round(self.progress * (sections.length - 1)) + 1;
+                    document.getElementById('progress-indicator').innerText = `0${progress} / 0${sections.length}`;
+                }
+            }
+        });
+
+        // --- Új Modal UI Logic ---
+        const modalWrapper = document.getElementById('modal-wrapper');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalBox = document.getElementById('modal-box');
+        const panelContent = document.getElementById('panel-content');
+        const panelTitle = document.getElementById('panel-title');
+        const panelSubtitle = document.getElementById('panel-subtitle');
+        const panelScrollArea = document.getElementById('panel-scroll-area');
+
+        function openPanel(topicKey) {
+            const data = dataMap[topicKey];
+            if(!data) return;
+
+            // Render Meta
+            panelTitle.innerHTML = data.title;
+            panelSubtitle.innerHTML = data.subtitle;
+
+            // Render Cards
+            panelContent.innerHTML = '';
+            data.cards.forEach((card, index) => {
+                const badgeColor = card.type === 'Definíció' ? 'bg-blue-500/20 text-blue-400' : 
+                                   card.type === 'Tétel' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-purple-500/20 text-purple-400';
+                
+                const cardHtml = `
+                    <div class="glass-card p-6 rounded-2xl flex gap-5 opacity-0 translate-y-4" style="animation: slideUp 0.4s ease forwards ${index * 0.1}s">
+                        <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0 text-xl text-gray-300">
+                            <i class="fa-solid ${card.icon}"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-md ${badgeColor}">${card.type}</span>
+                                <h3 class="text-lg font-bold text-white">${card.title}</h3>
+                            </div>
+                            <p class="text-gray-400 text-sm leading-relaxed">${card.content}</p>
+                        </div>
+                    </div>
+                `;
+                panelContent.innerHTML += cardHtml;
+            });
+
+            // Trigger MathJax re-render for formulas AND Titles!
+            if(window.MathJax) {
+                MathJax.typesetPromise([panelContent, panelTitle, panelSubtitle]);
+            }
+
+            // Scroll visszaállítása a tetejére
+            panelScrollArea.scrollTop = 0;
+
+            // Modal megnyitása animálva
+            modalWrapper.classList.remove('hidden');
+            setTimeout(() => {
+                modalWrapper.classList.remove('pointer-events-none');
+                modalOverlay.classList.remove('opacity-0');
+                modalBox.classList.remove('opacity-0', 'scale-95');
+                modalBox.classList.add('opacity-100', 'scale-100');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden'; // Háttér görgetés letiltása
+        }
+
+        function closePanel() {
+            // Modal bezárása animálva
+            modalBox.classList.remove('opacity-100', 'scale-100');
+            modalBox.classList.add('opacity-0', 'scale-95');
+            modalOverlay.classList.add('opacity-0');
+            modalWrapper.classList.add('pointer-events-none');
+            
+            setTimeout(() => {
+                modalWrapper.classList.add('hidden');
+            }, 300); // Wait for transition
+            
+            document.body.style.overflow = 'auto'; // Háttér görgetés engedélyezése
+        }
+
+        // Keresés logika integrálása a modállal
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            if(query.length < 3 && !modalWrapper.classList.contains('hidden')) return;
+            
+            if(query.length >= 3) {
+                let results = [];
+                Object.values(dataMap).forEach(topic => {
+                    topic.cards.forEach(card => {
+                        if(card.title.toLowerCase().includes(query) || card.content.toLowerCase().includes(query)) {
+                            results.push(card);
+                        }
+                    });
+                });
+
+                panelTitle.innerHTML = 'Keresési Eredmények';
+                panelSubtitle.innerHTML = `Kulcsszó: "${query}"`;
+                panelContent.innerHTML = '';
+                
+                if(results.length === 0) {
+                    panelContent.innerHTML = '<p class="text-gray-500 text-center mt-10">Nincs találat.</p>';
+                } else {
+                    results.forEach((card, index) => {
+                        const badgeColor = 'bg-gray-500/20 text-gray-400';
+                        const cardHtml = `
+                            <div class="glass-card p-6 rounded-2xl flex gap-5 opacity-0 translate-y-4" style="animation: slideUp 0.4s ease forwards ${index * 0.1}s">
+                                <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0 text-xl text-gray-300">
+                                    <i class="fa-solid ${card.icon}"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <span class="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-md ${badgeColor}">${card.type}</span>
+                                        <h3 class="text-lg font-bold text-white">${card.title}</h3>
+                                    </div>
+                                    <p class="text-gray-400 text-sm leading-relaxed">${card.content}</p>
+                                </div>
+                            </div>
+                        `;
+                        panelContent.innerHTML += cardHtml;
+                    });
+                }
+                
+                // Trigger MathJax re-render for search results and Titles
+                if(window.MathJax) MathJax.typesetPromise([panelContent, panelTitle, panelSubtitle]);
+                panelScrollArea.scrollTop = 0;
+                
+                // Nyissa meg a modált ha még nincs nyitva
+                if(modalWrapper.classList.contains('hidden')) {
+                    modalWrapper.classList.remove('hidden');
+                    setTimeout(() => {
+                        modalWrapper.classList.remove('pointer-events-none');
+                        modalOverlay.classList.remove('opacity-0');
+                        modalBox.classList.remove('opacity-0', 'scale-95');
+                        modalBox.classList.add('opacity-100', 'scale-100');
+                    }, 10);
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+        });
+
+        // ESC billentyűvel történő bezárás
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modalWrapper.classList.contains('hidden')) {
+                closePanel();
+            }
+        });
+
+        // CSS Keyframe for card stagger injection
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes slideUp {
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
